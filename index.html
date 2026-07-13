@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multiplication Practice</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --bg: #f3f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5b677a;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16803c;
+      --warning: #b45309;
+      --danger: #dc2626;
+      --border: #d7dfec;
+      --shadow: 0 20px 55px rgba(20, 33, 61, 0.13);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card: #172033;
+        --text: #f8fafc;
+        --muted: #bac4d4;
+        --primary: #60a5fa;
+        --primary-dark: #3b82f6;
+        --success: #4ade80;
+        --warning: #fbbf24;
+        --danger: #f87171;
+        --border: #334155;
+        --shadow: 0 20px 55px rgba(0, 0, 0, 0.32);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(22, 128, 60, 0.12), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      padding: 1.5rem;
+    }
+
+    main {
+      width: min(100%, 760px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      letter-spacing: -0.05em;
+    }
+
+    .intro {
+      margin: 0 0 1.75rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1rem;
+      margin-top: 1rem;
+      background: color-mix(in srgb, var(--card) 92%, var(--primary) 8%);
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    select,
+    input,
+    button {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      font: inherit;
+      padding: 0.85rem 1rem;
+    }
+
+    select,
+    input {
+      background: var(--card);
+      color: var(--text);
+    }
+
+    button {
+      border: 0;
+      background: var(--primary);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .level-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+
+    .level-grid button { width: auto; min-width: 9rem; }
+
+    .question-card {
+      display: none;
+      text-align: center;
+      padding: clamp(1rem, 4vw, 2rem);
+    }
+
+    .question-card.active { display: block; }
+
+    .phase {
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+    }
+
+    .question {
+      font-size: clamp(3rem, 13vw, 6.5rem);
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .answer-row {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr auto;
+      margin: 1rem auto 0;
+      max-width: 34rem;
+    }
+
+    .answer-row input {
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
+    .answer-row button { width: auto; min-width: 8rem; }
+
+    .status {
+      min-height: 1.8rem;
+      margin: 1rem 0 0;
+      font-weight: 700;
+    }
+
+    .status.correct { color: var(--success); }
+    .status.incorrect { color: var(--danger); }
+    .status.warning { color: var(--warning); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0.9rem;
+      text-align: center;
+      background: var(--card);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+    }
+
+    .results {
+      display: none;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .results.active { display: block; }
+
+    .missed-list {
+      margin: 0.75rem 0 0;
+      padding-left: 1.25rem;
+    }
+
+    @media (max-width: 560px) {
+      .level-grid,
+      .answer-row,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .level-grid button,
+      .answer-row button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Multiplication Practice</h1>
+    <p class="intro">
+      Choose a times table, mixed half, or full mixed practice. Answer every question once, then any missed questions will be asked again until you finish them correctly.
+    </p>
+
+    <section class="panel" aria-labelledby="level-title">
+      <div class="level-grid">
+        <div>
+          <label id="level-title" for="levelSelect">Practice level</label>
+          <select id="levelSelect"></select>
+        </div>
+        <button id="startButton" type="button">Start Practice</button>
+      </div>
+    </section>
+
+    <section id="practice" class="panel question-card" aria-live="polite">
+      <div id="phase" class="phase">Practice round</div>
+      <div id="question" class="question">1 × 1</div>
+      <form id="answerForm" class="answer-row">
+        <input id="answerInput" type="number" inputmode="numeric" autocomplete="off" aria-label="Your answer" required />
+        <button type="submit">Submit</button>
+      </form>
+      <p id="status" class="status"></p>
+      <div class="stats" aria-label="Practice statistics">
+        <div class="stat"><span>Answered</span><strong id="answeredCount">0</strong></div>
+        <div class="stat"><span>Correct</span><strong id="correctCount">0</strong></div>
+        <div class="stat"><span>To Review</span><strong id="reviewCount">0</strong></div>
+      </div>
+    </section>
+
+    <section id="results" class="panel results" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const levelSelect = document.querySelector('#levelSelect');
+    const startButton = document.querySelector('#startButton');
+    const practice = document.querySelector('#practice');
+    const questionEl = document.querySelector('#question');
+    const phaseEl = document.querySelector('#phase');
+    const answerForm = document.querySelector('#answerForm');
+    const answerInput = document.querySelector('#answerInput');
+    const statusEl = document.querySelector('#status');
+    const answeredCount = document.querySelector('#answeredCount');
+    const correctCount = document.querySelector('#correctCount');
+    const reviewCount = document.querySelector('#reviewCount');
+    const results = document.querySelector('#results');
+
+    const state = {
+      currentQuestion: null,
+      initialQuestions: [],
+      queue: [],
+      reviewQueue: [],
+      reviewMode: false,
+      answered: 0,
+      correct: 0,
+      missedOnce: new Map(),
+    };
+
+    function buildLevels() {
+      for (let table = 1; table <= 12; table += 1) {
+        levelSelect.add(new Option(`${table} times table`, `table-${table}`));
+      }
+
+      levelSelect.add(new Option('Half mix: 1 to 6', 'mix-1-6'));
+      levelSelect.add(new Option('Half mix: 7 to 12', 'mix-7-12'));
+      levelSelect.add(new Option('Full mix: 1 to 12', 'mix-1-12'));
+    }
+
+    function range(start, end) {
+      return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+    }
+
+    function selectedTables() {
+      const value = levelSelect.value;
+
+      if (value.startsWith('table-')) {
+        return [Number(value.replace('table-', ''))];
+      }
+
+      if (value === 'mix-1-6') return range(1, 6);
+      if (value === 'mix-7-12') return range(7, 12);
+      return range(1, 12);
+    }
+
+    function createQuestions(tables) {
+      const questions = [];
+
+      tables.forEach((left) => {
+        for (let right = 1; right <= 12; right += 1) {
+          questions.push({ left, right, answer: left * right, id: `${left}x${right}` });
+        }
+      });
+
+      return shuffle(questions);
+    }
+
+    function shuffle(items) {
+      const shuffled = [...items];
+      for (let index = shuffled.length - 1; index > 0; index -= 1) {
+        const swapIndex = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+      }
+      return shuffled;
+    }
+
+    function startPractice() {
+      const tables = selectedTables();
+      state.initialQuestions = createQuestions(tables);
+      state.queue = [...state.initialQuestions];
+      state.reviewQueue = [];
+      state.reviewMode = false;
+      state.answered = 0;
+      state.correct = 0;
+      state.missedOnce.clear();
+
+      results.classList.remove('active');
+      results.innerHTML = '';
+      practice.classList.add('active');
+      statusEl.textContent = '';
+      statusEl.className = 'status';
+      showNextQuestion();
+    }
+
+    function showNextQuestion() {
+      if (state.queue.length === 0) {
+        if (!state.reviewMode && state.reviewQueue.length > 0) {
+          state.reviewMode = true;
+          state.queue = shuffle(state.reviewQueue);
+          state.reviewQueue = [];
+          statusEl.textContent = 'Review round started. Try the missed questions again.';
+          statusEl.className = 'status warning';
+        } else if (state.reviewMode && state.reviewQueue.length > 0) {
+          state.queue = shuffle(state.reviewQueue);
+          state.reviewQueue = [];
+          statusEl.textContent = 'Some review answers were still missed. Here they come again.';
+          statusEl.className = 'status warning';
+        } else {
+          finishPractice();
+          return;
+        }
+      }
+
+      state.currentQuestion = state.queue.pop();
+      phaseEl.textContent = state.reviewMode ? 'Review missed questions' : 'Practice round';
+      questionEl.textContent = `${state.currentQuestion.left} × ${state.currentQuestion.right}`;
+      answerInput.value = '';
+      answerInput.focus();
+      updateStats();
+    }
+
+    function submitAnswer(event) {
+      event.preventDefault();
+      const userAnswer = Number(answerInput.value);
+      const question = state.currentQuestion;
+
+      if (!Number.isFinite(userAnswer)) {
+        statusEl.textContent = 'Please enter a number.';
+        statusEl.className = 'status warning';
+        return;
+      }
+
+      state.answered += 1;
+
+      if (userAnswer === question.answer) {
+        state.correct += 1;
+        statusEl.textContent = `Correct! ${question.left} × ${question.right} = ${question.answer}.`;
+        statusEl.className = 'status correct';
+      } else {
+        state.reviewQueue.push(question);
+        state.missedOnce.set(question.id, question);
+        statusEl.textContent = `Not quite. ${question.left} × ${question.right} = ${question.answer}. It will be asked again.`;
+        statusEl.className = 'status incorrect';
+      }
+
+      showNextQuestion();
+    }
+
+    function updateStats() {
+      answeredCount.textContent = state.answered;
+      correctCount.textContent = state.correct;
+      reviewCount.textContent = state.reviewQueue.length + state.queue.filter((question) => state.missedOnce.has(question.id)).length;
+    }
+
+    function finishPractice() {
+      practice.classList.remove('active');
+      const total = state.initialQuestions.length;
+      const missed = [...state.missedOnce.values()]
+        .sort((a, b) => a.left - b.left || a.right - b.right);
+      const missedMarkup = missed.length
+        ? `<p>You corrected ${missed.length} question${missed.length === 1 ? '' : 's'} during review:</p><ul class="missed-list">${missed.map((item) => `<li>${item.left} × ${item.right} = ${item.answer}</li>`).join('')}</ul>`
+        : '<p>Perfect first round — no review questions were needed!</p>';
+
+      results.innerHTML = `
+        <h2>Practice complete!</h2>
+        <p>You finished ${total} original question${total === 1 ? '' : 's'} and answered all review questions correctly.</p>
+        ${missedMarkup}
+        <button type="button" id="againButton">Practice Again</button>
+      `;
+      results.classList.add('active');
+      document.querySelector('#againButton').addEventListener('click', startPractice);
+    }
+
+    buildLevels();
+    startButton.addEventListener('click', startPractice);
+    answerForm.addEventListener('submit', submitAnswer);
+  </script>
+</body>
+</html>
