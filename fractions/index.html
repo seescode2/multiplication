@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff6df">
+  <title>Pizza Fraction Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../fractions/" aria-label="Pizza Fraction Lab home"><span>🍕</span> Pizza Fraction Lab</a>
+    <nav class="mode-switch" aria-label="Choose an activity mode">
+      <button class="mode-button active" type="button" data-mode="explore" aria-pressed="true">Explore</button>
+      <button class="mode-button" type="button" data-mode="quiz" aria-pressed="false">Quiz</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">A tasty way to learn</p>
+      <h1 id="pageTitle">Build fractions with pizza!</h1>
+      <p id="pageIntro">Change the slices, choose an operation, and watch the answer appear.</p>
+    </section>
+
+    <section id="exploreMode" class="activity" aria-labelledby="pageTitle">
+      <div class="equation-board">
+        <article class="fraction-card">
+          <h2>Pizza one</h2>
+          <div id="pizzaOne" class="pizza-stage" aria-live="polite"></div>
+          <div class="fraction-controls" aria-label="First fraction">
+            <label>Top number <span>Numerator</span><input id="numeratorOne" type="number" min="0" max="12" value="1" inputmode="numeric"></label>
+            <span class="fraction-line" aria-hidden="true"></span>
+            <label>Bottom number <span>Denominator</span><input id="denominatorOne" type="number" min="1" max="12" value="4" inputmode="numeric"></label>
+          </div>
+        </article>
+
+        <fieldset class="operator-picker">
+          <legend>Choose</legend>
+          <input type="radio" name="operator" id="addOperator" value="+" checked><label for="addOperator" aria-label="Add">+</label>
+          <input type="radio" name="operator" id="subtractOperator" value="−"><label for="subtractOperator" aria-label="Subtract">−</label>
+        </fieldset>
+
+        <article class="fraction-card">
+          <h2>Pizza two</h2>
+          <div id="pizzaTwo" class="pizza-stage" aria-live="polite"></div>
+          <div class="fraction-controls" aria-label="Second fraction">
+            <label>Top number <span>Numerator</span><input id="numeratorTwo" type="number" min="0" max="12" value="2" inputmode="numeric"></label>
+            <span class="fraction-line" aria-hidden="true"></span>
+            <label>Bottom number <span>Denominator</span><input id="denominatorTwo" type="number" min="1" max="12" value="6" inputmode="numeric"></label>
+          </div>
+        </article>
+      </div>
+
+      <section class="answer-card" aria-labelledby="answerTitle">
+        <p class="eyebrow">The delicious answer</p>
+        <h2 id="answerTitle" class="equation-text"></h2>
+        <div id="resultPizzas" class="result-pizzas" aria-live="polite"></div>
+        <p id="answerHint" class="answer-hint"></p>
+      </section>
+    </section>
+
+    <section id="quizMode" class="activity quiz hidden" aria-labelledby="quizTitle">
+      <div class="quiz-heading">
+        <div><p class="eyebrow">Pizza challenge</p><h2 id="quizTitle">Can you solve it?</h2></div>
+        <div class="score"><strong id="scoreValue">0</strong><span>correct</span></div>
+      </div>
+      <div class="quiz-pizzas">
+        <div><div id="quizPizzaOne" class="pizza-stage"></div><strong id="quizFractionOne"></strong></div>
+        <span id="quizOperator" class="quiz-operator">+</span>
+        <div><div id="quizPizzaTwo" class="pizza-stage"></div><strong id="quizFractionTwo"></strong></div>
+      </div>
+      <form id="quizForm" class="quiz-form">
+        <p>Type your answer as a fraction:</p>
+        <div class="answer-inputs">
+          <label><span>Numerator</span><input id="quizNumerator" type="number" inputmode="numeric" required autocomplete="off"></label>
+          <span class="fraction-line"></span>
+          <label><span>Denominator</span><input id="quizDenominator" type="number" min="1" inputmode="numeric" required autocomplete="off"></label>
+        </div>
+        <button class="check-button" type="submit">Check my answer!</button>
+      </form>
+      <div id="quizFeedback" class="feedback" role="status" aria-live="polite"></div>
+      <button id="nextQuestion" class="next-button hidden" type="button">Next pizza →</button>
+    </section>
+  </main>
+  <footer>Made for curious mathematicians <span aria-hidden="true">★</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
