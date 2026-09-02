@@ -22,11 +22,19 @@ function simplify(numerator, denominator) {
   return { numerator: numerator / divisor, denominator: denominator / divisor };
 }
 
-function calculate(a, b, operator) {
+function calculateParts(a, b, operator) {
+  const denominator = (a.denominator * b.denominator) / gcd(a.denominator, b.denominator);
+  const firstNumerator = a.numerator * (denominator / a.denominator);
+  const secondNumerator = b.numerator * (denominator / b.denominator);
   const numerator = operator === '+'
-    ? a.numerator * b.denominator + b.numerator * a.denominator
-    : a.numerator * b.denominator - b.numerator * a.denominator;
-  return simplify(numerator, a.denominator * b.denominator);
+    ? firstNumerator + secondNumerator
+    : firstNumerator - secondNumerator;
+  const unsimplified = { numerator, denominator };
+  return { unsimplified, simplest: simplify(numerator, denominator) };
+}
+
+function calculate(a, b, operator) {
+  return calculateParts(a, b, operator).simplest;
 }
 
 function wedgePath(index, total) {
@@ -59,10 +67,10 @@ function valuePair(one = true) {
 function renderExplore() {
   const a = valuePair(); const b = valuePair(false);
   const operator = document.querySelector('[name=operator]:checked').value;
-  const result = calculate(a, b, operator);
+  const { unsimplified, simplest: result } = calculateParts(a, b, operator);
   renderPizza($('#pizzaOne'), a.numerator, a.denominator);
   renderPizza($('#pizzaTwo'), b.numerator, b.denominator);
-  $('#answerTitle').textContent = `${a.numerator}/${a.denominator} ${operator} ${b.numerator}/${b.denominator} = ${result.numerator}/${result.denominator}`;
+  $('#answerTitle').textContent = `${a.numerator}/${a.denominator} ${operator} ${b.numerator}/${b.denominator} = ${unsimplified.numerator}/${unsimplified.denominator} = ${result.numerator}/${result.denominator}`;
   const amount = Math.abs(result.numerator);
   const wholes = Math.floor(amount / result.denominator);
   const remainder = amount % result.denominator;
