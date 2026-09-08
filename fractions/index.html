@@ -65,6 +65,12 @@
         <div><p class="eyebrow">Pizza challenge</p><h2 id="quizTitle">Can you solve it?</h2></div>
         <div class="score"><strong id="scoreValue">0</strong><span>correct</span></div>
       </div>
+      <fieldset class="difficulty-picker" aria-label="Quiz difficulty">
+        <legend>Difficulty</legend>
+        <button type="button" class="difficulty-button active" data-difficulty="easy" aria-pressed="true">Easy</button>
+        <button type="button" class="difficulty-button" data-difficulty="medium" aria-pressed="false">Medium</button>
+        <button type="button" class="difficulty-button" data-difficulty="hard" aria-pressed="false">Hard</button>
+      </fieldset>
       <div class="quiz-pizzas">
         <div><div id="quizPizzaOne" class="pizza-stage"></div><strong id="quizFractionOne"></strong></div>
         <span id="quizOperator" class="quiz-operator">+</span>

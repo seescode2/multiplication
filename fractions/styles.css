@@ -25,6 +25,8 @@ h1 { margin:0; font-size:clamp(2.2rem,6vw,4rem); line-height:1.05; color:var(--r
 .pizza-svg { width:100%; height:100%; filter:drop-shadow(0 7px 6px rgba(87,55,20,.17)); }
 .empty-slice { fill:#f4ead3; }
 .filled-slice { fill:#ffd05b; }
+.pepperoni-slice { fill:#ffd05b; }
+.cheese-slice { fill:#ffe59a; }
 .slice-line { stroke:#fff9e8; stroke-width:2.5; }
 .crust { fill:none; stroke:#c97931; stroke-width:8; }
 .pepperoni { fill:#df4c45; stroke:#bd3634; stroke-width:1.5; }
@@ -51,6 +53,10 @@ input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(92,145,217,.2)
 .quiz-heading h2 { margin:0; font-size:2rem; }
 .score { min-width:90px; padding:8px 15px; background:#eaf7ed; border-radius:16px; color:var(--green); display:grid; }
 .score strong { font-size:1.7rem; line-height:1; }.score span { font-size:.72rem; text-transform:uppercase; font-weight:900; }
+.difficulty-picker { border:0; padding:0; margin:20px auto 8px; display:flex; justify-content:center; gap:6px; }
+.difficulty-picker legend { position:absolute; clip:rect(0 0 0 0); }
+.difficulty-button { border:2px solid #e2d9c9; color:#706b7b; background:#fffefa; border-radius:11px; padding:8px 18px; font-weight:900; }
+.difficulty-button.active { color:white; border-color:var(--blue); background:var(--blue); }
 .quiz-pizzas { display:grid; grid-template-columns:1fr 70px 1fr; align-items:center; max-width:600px; margin:20px auto; }
 .quiz-pizzas strong { font-size:1.5rem; }.quiz-operator { font:900 3rem 'Baloo 2'; color:var(--red); }
 .quiz-form>p { font-weight:800; }.answer-inputs { width:150px; display:grid; gap:5px; margin:0 auto 18px; }.answer-inputs label span { position:absolute; clip:rect(0 0 0 0); }
