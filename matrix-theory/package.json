@@ -1,0 +1,9 @@
+{
+  "name": "matrix-theory-labs",
+  "private": true,
+  "scripts": {
+    "test": "node test.js",
+    "list": "node run.js --list",
+    "start": "node run.js"
+  }
+}
