@@ -1,0 +1,14 @@
+'use strict';
+
+function num(index, fallback) {
+  const value = Number(process.argv[index] ?? fallback);
+  if (!Number.isFinite(value)) stop(`Input ${index - 1} must be a number.`);
+  return value;
+}
+function stop(message) { console.error(message); process.exit(1); }
+function fmt(value) { return Number(Number(value).toFixed(6)); }
+function gcd(a, b) { a=Math.abs(a); b=Math.abs(b); while(b) [a,b]=[b,a%b]; return a || 1; }
+function range(start,end) { const step=start<=end?1:-1; return Array.from({length:Math.abs(end-start)+1},(_,i)=>start+i*step); }
+function bar(start,end,marks=[]) { return range(start,end).map(n=>marks.includes(n)?`[${n}]`:` ${n} `).join('—'); }
+
+const a=num(2,2),b=num(3,5); const sign=a<b?'<':a>b?'>':'='; const flipped=-a < -b?'<':-a>-b?'>':'='; console.log(`${a} ${sign} ${b}`); console.log(`Multiply both sides by -1: ${-a} ${flipped} ${-b}`); console.log('The direction reverses because negatives reverse order.');
