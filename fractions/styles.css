@@ -66,3 +66,19 @@ input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(92,145,217,.2)
 footer { background:var(--ink); color:white; text-align:center; padding:18px; font-weight:800; } footer span { color:var(--yellow); }
 @media(max-width:700px){ .topbar{flex-direction:column;padding:10px}.equation-board{grid-template-columns:1fr}.operator-picker{width:140px;justify-self:center}.fraction-card{padding:15px}.pizza-stage{width:200px}.quiz-pizzas{grid-template-columns:1fr 45px 1fr}.quiz-pizzas .pizza-stage{width:100%}.result-pizzas .pizza-stage{width:100px} }
 @media(prefers-reduced-motion:no-preference){ .pizza-svg{animation:pop .25s ease-out}@keyframes pop{from{transform:scale(.92)}to{transform:scale(1)}} }
+
+.lesson-intro { max-width:720px; margin:0 auto 24px; text-align:center; }
+.lesson-intro h2 { font-size:1.8rem; margin:0; }
+.lesson-pizzas { display:grid; grid-template-columns:minmax(0,1fr) 50px minmax(0,1fr); gap:12px; align-items:center; }
+.lesson-plus { text-align:center; font-size:2.5rem; color:var(--red-dark); }
+.lesson-fraction { font-size:clamp(1.15rem,3vw,1.6rem); font-weight:900; }
+.split-controls { border:0; padding:0; margin:12px 0; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+.split-controls legend { width:100%; margin-bottom:8px; }
+.split-controls button { background:#fff5dc; border:2px solid #d9b77d; border-radius:10px; padding:10px; color:var(--ink); }
+.lesson-link { display:block; margin:12px auto; border:0; background:transparent; color:#365e94; text-decoration:underline; padding:8px; }
+.transfer-button { margin:0 0 8px; }
+button:disabled { opacity:.45; cursor:default; transform:none; box-shadow:none; }
+button:focus-visible { outline:3px solid #365e94; outline-offset:4px; }
+.original-cut { stroke:#895021; stroke-width:1.8; pointer-events:none; }
+#lessonStatus,#lessonTip { max-width:650px; margin:16px auto; line-height:1.6; }
+@media(max-width:700px){ .lesson-pizzas{grid-template-columns:minmax(0,1fr)}.lesson-plus{line-height:1}.mode-button{padding:9px 13px} }

@@ -11,6 +11,7 @@
   <header class="topbar">
     <a class="brand" href="../fractions/" aria-label="Pizza Fraction Lab home"><span>🍕</span> Pizza Fraction Lab</a>
     <nav class="mode-switch" aria-label="Choose an activity mode">
+      <button class="mode-button" type="button" data-mode="learn" aria-pressed="false">Match slices</button>
       <button class="mode-button active" type="button" data-mode="explore" aria-pressed="true">Explore</button>
       <button class="mode-button" type="button" data-mode="quiz" aria-pressed="false">Quiz</button>
     </nav>
@@ -21,6 +22,50 @@
       <p class="eyebrow">A tasty way to learn</p>
       <h1 id="pageTitle">Build fractions with pizza!</h1>
       <p id="pageIntro">Change the slices, choose an operation, and watch the answer appear.</p>
+    </section>
+
+    <section id="learnMode" class="activity hidden" aria-labelledby="learnTitle">
+      <div class="lesson-intro">
+        <p class="eyebrow" id="lessonStep">Step 1 · Match</p>
+        <h2 id="learnTitle">How can we add 1/2 and 1/3?</h2>
+        <p>These pizzas are the same size, but their slices aren't. Split every slice into smaller, equal pieces until both pizzas have the same size slices.</p>
+        <p><strong>The shaded pizza stays the same amount.</strong> Dark lines show the original cuts.</p>
+      </div>
+      <div class="lesson-pizzas">
+        <article class="fraction-card">
+          <h2>One half · Pepperoni</h2>
+          <div id="learnPizza0" class="pizza-stage"></div>
+          <p id="learnFraction0" class="lesson-fraction"></p>
+          <fieldset class="split-controls"><legend>Split each slice into…</legend>
+            <button type="button" data-pizza="0" data-split="2">2 pieces</button>
+            <button type="button" data-pizza="0" data-split="3">3 pieces</button>
+            <button type="button" data-pizza="0" data-split="4">4 pieces</button>
+          </fieldset>
+          <button type="button" class="lesson-link" data-reset-pizza="0">Undo these cuts</button>
+          <button type="button" class="check-button transfer-button" data-transfer="0" disabled>Move one shaded slice</button>
+        </article>
+        <span class="lesson-plus" aria-hidden="true">+</span>
+        <article class="fraction-card">
+          <h2>One third · Cheese</h2>
+          <div id="learnPizza1" class="pizza-stage"></div>
+          <p id="learnFraction1" class="lesson-fraction"></p>
+          <fieldset class="split-controls"><legend>Split each slice into…</legend>
+            <button type="button" data-pizza="1" data-split="2">2 pieces</button>
+            <button type="button" data-pizza="1" data-split="3">3 pieces</button>
+            <button type="button" data-pizza="1" data-split="4">4 pieces</button>
+          </fieldset>
+          <button type="button" class="lesson-link" data-reset-pizza="1">Undo these cuts</button>
+          <button type="button" class="check-button transfer-button" data-transfer="1" disabled>Move one shaded slice</button>
+        </article>
+      </div>
+      <section class="answer-card" aria-labelledby="learnResultTitle">
+        <h2 id="learnResultTitle">First, make the slices match</h2>
+        <p id="lessonStatus" role="status" aria-live="polite"></p>
+        <div id="learnResult" class="pizza-stage hidden"></div>
+        <p id="learnEquation" class="lesson-fraction"></p>
+        <p id="lessonTip">Try splitting each half into 3 pieces and each third into 2 pieces.</p>
+        <button id="restartLesson" type="button" class="next-button">Start again</button>
+      </section>
     </section>
 
     <section id="exploreMode" class="activity" aria-labelledby="pageTitle">

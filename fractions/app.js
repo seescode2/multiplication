@@ -142,11 +142,17 @@ inputs.forEach((input) => input.addEventListener('input', () => { clampInput(inp
 document.querySelectorAll('[name=operator]').forEach((input) => input.addEventListener('change', renderExplore));
 document.querySelectorAll('.mode-button').forEach((button) => button.addEventListener('click', () => {
   document.querySelectorAll('.mode-button').forEach((item) => { const active = item === button; item.classList.toggle('active', active); item.setAttribute('aria-pressed', active); });
-  const quiz = button.dataset.mode === 'quiz';
-  $('#exploreMode').classList.toggle('hidden', quiz); $('#quizMode').classList.toggle('hidden', !quiz);
-  $('#pageTitle').textContent = quiz ? 'Put your fraction skills to the test!' : 'Build fractions with pizza!';
-  $('#pageIntro').textContent = quiz ? 'Look at the pizzas, solve the problem, and simplify your answer.' : 'Change the slices, choose an operation, and watch the answer appear.';
-  if (quiz) randomQuestion();
+  const mode = button.dataset.mode;
+  ['explore', 'quiz', 'learn'].forEach((name) => $(`#${name}Mode`).classList.toggle('hidden', name !== mode));
+  const headings = {
+    explore: ['Build fractions with pizza!', 'Change the slices, choose an operation, and watch the answer appear.'],
+    quiz: ['Put your fraction skills to the test!', 'Look at the pizzas, solve the problem, and simplify your answer.'],
+    learn: ['Make the slices match!', 'Same amount of pizza. Smaller, equal pieces.']
+  };
+  $('#pageTitle').textContent = headings[mode][0];
+  $('#pageIntro').textContent = headings[mode][1];
+  if (mode === 'quiz') randomQuestion();
+  if (mode === 'learn') renderLesson();
 }));
 document.querySelectorAll('.difficulty-button').forEach((button) => button.addEventListener('click', () => {
   document.querySelectorAll('.difficulty-button').forEach((item) => {
@@ -168,3 +174,80 @@ $('#quizForm').addEventListener('submit', (event) => {
 });
 $('#nextQuestion').addEventListener('click', randomQuestion);
 renderExplore();
+
+// Keep the original whole and shaded amount fixed while adding equal cuts.
+const lesson = { denominators: [2, 3], moved: [0, 0] };
+
+function renderLesson() {
+  const [a, b] = lesson.denominators;
+  const matching = a === b;
+  const moved = lesson.moved[0] + lesson.moved[1];
+  const started = moved > 0;
+  const complete = matching && moved === a / 2 + b / 3;
+  lesson.denominators.forEach((denominator, index) => {
+    const original = index + 2;
+    const numerator = denominator / original;
+    const remaining = numerator - lesson.moved[index];
+    let svg = pizzaSvg(remaining, denominator,
+      `${remaining} shaded slices out of ${denominator}; originally one ${index ? 'third' : 'half'}`,
+      index ? 'cheese' : 'pepperoni');
+    const cuts = Array.from({ length: original }, (_, cut) => {
+      const angle = cut * 2 * Math.PI / original - Math.PI / 2;
+      return `<line x1="50" y1="50" x2="${50 + 39 * Math.cos(angle)}" y2="${50 + 39 * Math.sin(angle)}" class="original-cut"/>`;
+    }).join('');
+    svg = svg.replace('</svg>', `${cuts}</svg>`);
+    $(`#learnPizza${index}`).innerHTML = svg;
+    $(`#learnFraction${index}`).textContent = started
+      ? `${remaining}/${denominator} left · ${lesson.moved[index]} moved`
+      : `1/${original} = ${numerator}/${denominator}`;
+    document.querySelectorAll(`[data-pizza="${index}"]`).forEach((button) => {
+      button.disabled = started || denominator * Number(button.dataset.split) > 24;
+    });
+    document.querySelector(`[data-reset-pizza="${index}"]`).disabled = started || denominator === original;
+    document.querySelector(`[data-transfer="${index}"]`).disabled = !matching || remaining === 0;
+  });
+  $('#lessonStep').textContent = complete ? 'Step 3 · Discover' : matching ? 'Step 2 · Combine' : 'Step 1 · Match';
+  $('#learnResultTitle').textContent = complete ? 'You combined the pizza!' : matching ? 'Move the shaded slices here' : 'First, make the slices match';
+  $('#lessonStatus').textContent = complete
+    ? 'More slices changed the numbers, but the amount of pizza stayed the same.'
+    : matching
+      ? `Both pizzas have ${a} equal slices. ${started ? `${moved} moved so far.` : 'Their denominators match!'} Use the move buttons to combine them.`
+      : `One pizza has ${a} slices and the other has ${b}. Their pieces are different sizes, so we cannot count them together yet.`;
+  $('#learnResult').classList.toggle('hidden', !matching);
+  if (matching) $('#learnResult').innerHTML = combinedPizzaSvg(lesson.moved[0], lesson.moved[1], a, `${moved} out of ${a} slices moved to the result pizza`);
+  $('#learnEquation').textContent = complete
+    ? `1/2 + 1/3 = ${a / 2}/${a} + ${a / 3}/${a} = ${moved}/${a}${a === 6 ? '' : ' = 5/6'}`
+    : '';
+  $('#lessonTip').textContent = complete
+    ? a === 6
+      ? '6 is the least common multiple of 2 and 3: the smallest number of equal slices both pizzas can share. It is our least common denominator.'
+      : `A denominator of ${a} works too! Start again and try to match with fewer slices. Can you make sixths?`
+    : started
+      ? 'Each move takes one shaded slice from its pizza and puts it on the result pizza.'
+      : 'Try splitting each half into 3 pieces and each third into 2 pieces. You can undo cuts to try again. We use up to 24 slices so the pieces stay easy to see.';
+}
+
+document.querySelectorAll('[data-split]').forEach((button) => button.addEventListener('click', () => {
+  const index = Number(button.dataset.pizza);
+  const next = lesson.denominators[index] * Number(button.dataset.split);
+  if (lesson.moved.some(Boolean) || next > 24) return;
+  lesson.denominators[index] = next;
+  renderLesson();
+}));
+document.querySelectorAll('[data-reset-pizza]').forEach((button) => button.addEventListener('click', () => {
+  if (lesson.moved.some(Boolean)) return;
+  const index = Number(button.dataset.resetPizza);
+  lesson.denominators[index] = index + 2;
+  renderLesson();
+}));
+document.querySelectorAll('[data-transfer]').forEach((button) => button.addEventListener('click', () => {
+  const index = Number(button.dataset.transfer);
+  if (lesson.denominators[0] !== lesson.denominators[1] || lesson.moved[index] >= lesson.denominators[index] / (index + 2)) return;
+  lesson.moved[index] += 1;
+  renderLesson();
+}));
+$('#restartLesson').addEventListener('click', () => {
+  lesson.denominators = [2, 3];
+  lesson.moved = [0, 0];
+  renderLesson();
+});
