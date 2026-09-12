@@ -6,7 +6,7 @@ Thirty small, beginner-friendly geometry labs. Each folder contains a `lab.md` l
 
 1. Choose a concept below.
 2. Open its `lab.md`.
-3. Follow the directions and run its JavaScript with Node.js.
+3. Follow the directions in the lab. For Dilations and Volume of Rectangular Prisms, open the linked web app directly in your browser; terminal simulations use Node.js.
 4. Change the inputs, predict the result, and run it again.
 
 ## Concepts
@@ -38,6 +38,6 @@ Thirty small, beginner-friendly geometry labs. Each folder contains a `lab.md` l
 25. [Translations](./25-translations/lab.md)
 26. [Reflections](./26-reflections/lab.md)
 27. [Rotations](./27-rotations/lab.md)
-28. [Dilations](./28-dilations/lab.md)
-29. [Volume of Rectangular Prisms](./29-volume-of-prisms/lab.md)
+28. [Dilations](./28-dilations/lab.md) · [Interactive web app](./28-dilations/index.html)
+29. [Volume of Rectangular Prisms](./29-volume-of-prisms/lab.md) · [Interactive web app](./29-volume-of-prisms/index.html)
 30. [Surface Area](./30-surface-area/lab.md)

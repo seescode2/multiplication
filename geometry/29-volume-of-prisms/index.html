@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume of Prisms · Geometry Lab 29</title>
+<link rel="stylesheet" href="style.css">
+<script src="browser.js" defer></script>
+</head>
+<body>
+<main>
+<header><span class="eyebrow">GEOMETRY / LAB 29</span><h1>Build it. Layer by layer.</h1><p>Fill a rectangular prism with unit cubes. See why volume is length × width × height.</p></header>
+<div class="layout">
+<section class="panel controls" aria-labelledby="controlsTitle">
+<h2 id="controlsTitle">Shape your prism</h2>
+<p class="hint">Each small cube has edges of 1 unit.</p>
+<label for="length">Length <output id="lengthValue" for="length">4 units</output></label>
+<input id="length" type="range" min="1" max="10" value="4">
+<label for="width">Width <output id="widthValue" for="width">3 units</output></label>
+<input id="width" type="range" min="1" max="10" value="3">
+<label for="height">Height <output id="heightValue" for="height">2 units</output></label>
+<input id="height" type="range" min="1" max="20" value="2">
+<div class="actions"><button id="swap">Swap length &amp; width</button><button id="double">Double height</button></div>
+<p class="hint">Length and width: 1–10 units. Height: 1–20 units. Doubling is available up to height 10.</p>
+<fieldset><legend>Look inside</legend>
+<label for="layers">Layers filled <output id="layersValue" for="layers">2 / 2</output></label>
+<input id="layers" type="range" min="0" max="2" value="2">
+<div class="actions"><button id="play">Build layer by layer</button><button id="fill">Fill prism</button></div>
+<p class="hint">The dashed outline shows the full prism. The newest layer is gold; earlier layers are teal. Some cubes are hidden behind others.</p>
+</fieldset>
+<button id="reset">Reset exploration</button>
+</section>
+<section class="panel model" aria-label="Prism model and volume">
+<div class="model-heading"><h2>Your cube stack</h2><span id="dimensions" class="badge"></span></div>
+<svg id="prism" viewBox="0 0 680 470" role="img" aria-labelledby="modelTitle modelDescription"><title id="modelTitle">Rectangular prism made of unit cubes</title><desc id="modelDescription"></desc><g id="drawing"></g></svg>
+<div class="metrics" aria-live="polite" aria-atomic="true">
+<div><span>Cubes in one layer</span><strong id="base"></strong></div>
+<div><span>Cubes filled so far</span><strong id="filled"></strong></div>
+<div class="total"><span>Full volume · cubic units</span><strong id="volume"></strong></div>
+</div>
+<p id="equation" class="equation"></p><p id="explanation"></p>
+<p id="notice" class="notice" role="status">Try swapping length and width. Will the volume change?</p>
+</section>
+</div>
+<section class="panel lesson"><h2>Predict, then explore</h2><ol>
+<li>Start with 4 × 3 × 2. Move <b>Layers filled</b> to 1. Count the cubes in that layer, then fill the second layer.</li>
+<li>Predict what happens when you <b>Swap length &amp; width</b>. Check the full volume.</li>
+<li>Predict the volume with twice as many layers. Click <b>Double height</b> to check.</li>
+<li>Build two different prisms with a volume of 24 cubic units. Can they have different heights?</li>
+</ol><p>The base area is length × width, in square units. Multiplying by height gives volume in <b>cubic units</b>.</p><a href="lab.md">Read the lab instructions</a></section>
+</main>
+</body>
+</html>

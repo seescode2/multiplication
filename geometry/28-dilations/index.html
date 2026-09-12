@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dilations · Geometry Lab 28</title>
+<link rel="stylesheet" href="style.css">
+<script src="browser.js" defer></script>
+</head>
+<body>
+<main>
+<header><span class="eyebrow">GEOMETRY / LAB 28</span><h1>Same shape. New scale.</h1><p>Grow or shrink a figure from a center. Explore what changes—and what stays the same.</p></header>
+<div class="layout">
+<section class="panel controls" aria-label="Dilation controls">
+<h2>Explore a dilation</h2>
+<label for="shape">Figure</label><select id="shape"><option value="point">Point P</option><option value="triangle">Triangle PQR</option></select>
+<fieldset><legend>Original point P</legend><div class="pair"><label for="x">x <input id="x" type="number" min="-5" max="5" step="0.5" value="3"></label><label for="y">y <input id="y" type="number" min="-5" max="5" step="0.5" value="2"></label></div><p class="hint">Drag P on the grid or type coordinates (−5 to 5). In triangle mode, P moves the whole triangle.</p></fieldset>
+<fieldset><legend>Scale factor k</legend><label for="k">Multiply by <output id="kValue">2</output></label><input id="k" type="range" min="-3" max="3" step="0.1" value="2"><div class="presets"><button data-scale="0.5">½×</button><button data-scale="1">1×</button><button data-scale="2">2×</button><button data-scale="-1">−1×</button></div></fieldset>
+<fieldset><legend>Center C</legend><div class="pair"><label for="cx">x <input id="cx" type="number" min="-5" max="5" step="0.5" value="0"></label><label for="cy">y <input id="cy" type="number" min="-5" max="5" step="0.5" value="0"></label></div><p class="hint">Drag C or enter coordinates to move the center.</p></fieldset>
+<label class="check"><input id="guides" type="checkbox" checked> Show lines through the center</label><button id="reset">Reset exploration</button>
+</section>
+<section class="panel visualization" aria-label="Coordinate graph and results">
+<div class="legend"><span class="original">● Original</span><span class="image">◇ Dilated image</span><span>＋ Center C</span></div>
+<svg id="graph" viewBox="0 0 640 640" role="img" aria-labelledby="graphTitle graphDescription"><title id="graphTitle">Dilation on a coordinate plane</title><desc id="graphDescription"></desc><g id="drawing"></g></svg>
+<p class="hint">The grid automatically fits the figure with equal scales on both axes. Dragging snaps to ½ unit.</p>
+<div class="results" aria-live="polite" aria-atomic="true"><h2 id="status"></h2><p id="rule" class="formula"></p><div class="metrics"><div><span>Original P</span><strong id="before"></strong></div><div><span>Image P′</span><strong id="after"></strong></div><div><span>Distance C → P</span><strong id="distance"></strong></div></div><p id="explanation"></p><p id="triangleInfo"></p></div>
+</section>
+</div>
+<section class="panel lesson"><h2>Try it yourself</h2><ol><li>Start at P = (3, 2), C = (0, 0). Predict P′ when k = 2, then check the graph.</li><li>Choose ½×. Compare the coordinates and distance from the center.</li><li>Choose Triangle PQR. Compare side lengths and area at 2× and ½×.</li><li>Try 1×, 0, and −1×. Which leaves every point unchanged? Which moves points across the center?</li><li>Move C to (1, 1). Does multiplying the original coordinates still work?</li></ol><p>A dilation uses <code>P′ = C + k(P − C)</code>. Distances scale by <code>|k|</code>; areas scale by <code>k²</code>. For nonzero k, angles stay the same.</p><a href="lab.md">Read the lab instructions</a></section>
+</main>
+</body>
+</html>

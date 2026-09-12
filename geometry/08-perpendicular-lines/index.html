@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perpendicular Lines · Geometry Lab</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f6fa;color:#18243b;font:16px/1.5 system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:32px 20px}h1{font-size:clamp(26px,4vw,40px);margin:4px 0}p{margin:8px 0 20px}.eyebrow{color:#526078;letter-spacing:.12em;font-size:12px;font-weight:700}.layout{display:grid;grid-template-columns:310px 1fr;gap:22px}.panel{background:white;border:1px solid #dce2ec;border-radius:16px;padding:20px}fieldset{margin:0 0 20px;border:1px solid #dce2ec;border-radius:10px;padding:14px}legend{font-weight:700}.blue{color:#245bd6}.orange{color:#b84c10}label{display:block;margin:10px 0 4px}input[type=number]{width:90px;padding:6px;border:1px solid #8793a8;border-radius:5px;float:right}input[type=range]{width:100%;margin:12px 0;accent-color:#245bd6}button{padding:10px 13px;border:1px solid #bac5d7;border-radius:8px;background:#fff;color:#18243b;cursor:pointer;font:inherit}button:hover{background:#eef3ff}button:focus-visible,input:focus-visible{outline:3px solid #809cff;outline-offset:3px}.presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}#graph{display:block;width:100%;height:auto}#status{font-size:22px;font-weight:700;margin:0}#detail{margin:5px 0;color:#526078}.note{font-size:14px;color:#526078}.equation{font-family:ui-monospace,monospace;font-size:18px;margin:10px 0}.results{border-top:1px solid #e0e5ef;padding-top:16px}.key{display:flex;gap:20px;flex-wrap:wrap}.lesson{margin-top:22px} @media(max-width:760px){.layout{grid-template-columns:1fr}.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.controls fieldset{min-width:0}.controls .note{grid-column:1/-1}}@media(max-width:440px){.controls{display:block}}
+</style>
+<script src="app.js" defer></script>
+</head>
+<body><main>
+<div class="eyebrow">GEOMETRY / LAB 08</div>
+<h1>When do two lines meet at 90°?</h1>
+<p>Change the slope to tilt a line. Change the intercept to move it. Watch what happens to the angle.</p>
+<div class="layout">
+<section class="panel controls" aria-label="Line controls">
+<fieldset><legend class="blue">Line A · solid blue</legend>
+<label><input id="verticalA" type="checkbox"> Vertical line</label>
+<label for="mA">Slope m <input id="mA" type="number" min="-10" max="10" step="any" value="2"></label><input id="rangeMA" aria-label="Line A slope slider" type="range" min="-10" max="10" step="0.05" value="2">
+<label for="bA"><span id="labelBA">Intercept b</span> <input id="bA" type="number" min="-10" max="10" step="any" value="0"></label><input id="rangeBA" aria-label="Line A position slider" type="range" min="-10" max="10" step="0.1" value="0">
+<div id="equationA" class="equation blue"></div></fieldset>
+<fieldset><legend class="orange">Line B · dashed orange</legend>
+<label><input id="verticalB" type="checkbox"> Vertical line</label>
+<label for="mB">Slope m <input id="mB" type="number" min="-10" max="10" step="any" value="-0.5"></label><input id="rangeMB" aria-label="Line B slope slider" type="range" min="-10" max="10" step="0.05" value="-0.5">
+<label for="bB"><span id="labelBB">Intercept b</span> <input id="bB" type="number" min="-10" max="10" step="any" value="0"></label><input id="rangeBB" aria-label="Line B position slider" type="range" min="-10" max="10" step="0.1" value="0">
+<div id="equationB" class="equation orange"></div></fieldset>
+<p class="note">Controls range from −10 to 10. Type decimals for precise values. For vertical lines, the position control sets x = c; the slope is undefined.</p>
+</section>
+<section class="panel" aria-label="Graph and measurements">
+<svg id="graph" viewBox="0 0 600 600" role="img" aria-labelledby="graphTitle graphDescription"><title id="graphTitle">Interactive graph of two lines</title><desc id="graphDescription">Coordinate axes from minus ten to ten with equal horizontal and vertical scales.</desc></svg>
+<div class="results" aria-live="polite"><p id="status"></p><p id="detail"></p><div id="intersection"></div></div>
+<div class="presets" aria-label="Examples"><button data-preset="origin">Through the origin</button><button data-preset="shifted">Different intercepts</button><button data-preset="parallel">Parallel</button><button data-preset="vertical">Horizontal + vertical</button></div>
+</section></div>
+<section class="panel lesson"><strong>A slope gives a direction, not a complete line.</strong>
+<p>In <code>y = mx + b</code>, <strong>m</strong> is the slope and <strong>b</strong> is where the line crosses the y-axis. The starting example sets both intercepts to zero, but perpendicular lines can have any intercepts.</p>
+<p>Try <strong>Different intercepts</strong>: the lines still meet at 90°. For two finite slopes, perpendicular means <code>m₁ × m₂ = −1</code>. Horizontal and vertical lines are the special case.</p>
+<a href="lab.md">Read the full lab</a></section>
+</main></body></html>
