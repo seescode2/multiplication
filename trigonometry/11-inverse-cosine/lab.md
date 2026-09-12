@@ -8,21 +8,15 @@ Inverse cosine finds an angle when you know adjacent ÷ hypotenuse.
 
 Find an angle with inverse cosine.
 
-## Run the simulation
+## Open the simulation
 
-You need [Node.js](https://nodejs.org/) installed. From this folder, run:
-
-```bash
-node app.js 4 5
-```
-
-The values after `app.js` are inputs. Change them, run the command again, and compare the output. No packages or setup are needed.
+Open [`index.html`](./index.html) in any modern web browser. Use the sliders beside the live diagram; the measurements and visual update immediately. No Node.js, terminal, packages, or setup are needed.
 
 ## Directions
 
-1. Run with sides 4 and 5.
-2. Try equal side lengths.
-3. Double both inputs and compare the angle.
+1. Predict what the diagram and values will do before moving a slider.
+2. Move one slider slowly and connect each visual change to the calculation.
+3. Try an extreme value, then explain what stayed constant and what changed.
 
 ## Think about it
 
@@ -32,4 +26,4 @@ The values after `app.js` are inputs. Change them, run the command again, and co
 
 ## Success check
 
-You are ready to move on when you can predict one output before running the simulation and explain whether your prediction was correct.
+You are ready to move on when you can predict one output before using the simulation and explain whether your prediction was correct.
