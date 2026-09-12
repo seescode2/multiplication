@@ -8,21 +8,15 @@ The Law of Cosines finds a triangle side from two sides and their included angle
 
 Use the Law of Cosines to find a side.
 
-## Run the simulation
+## Open the simulation
 
-You need [Node.js](https://nodejs.org/) installed. From this folder, run:
-
-```bash
-node app.js 5 7 60
-```
-
-The values after `app.js` are inputs. Change them, run the command again, and compare the output. No packages or setup are needed.
+Open [`index.html`](./index.html) in any modern web browser. Use the sliders beside the live diagram; the measurements and visual update immediately. No Node.js, terminal, packages, or setup are needed.
 
 ## Directions
 
-1. Run with sides 5 and 7 and angle 60°.
-2. Try an included angle of 90°.
-3. Make the angle larger and watch the opposite side.
+1. Predict what the diagram and values will do before moving a slider.
+2. Move one slider slowly and connect each visual change to the calculation.
+3. Try an extreme value, then explain what stayed constant and what changed.
 
 ## Think about it
 
@@ -32,4 +26,4 @@ The values after `app.js` are inputs. Change them, run the command again, and co
 
 ## Success check
 
-You are ready to move on when you can predict one output before running the simulation and explain whether your prediction was correct.
+You are ready to move on when you can predict one output before using the simulation and explain whether your prediction was correct.
